@@ -921,4 +921,47 @@ button, .carousel-arrow {
     flex-direction: column;
     align-items: stretch;
   }
+/* Estilos para modo PWA */
+.pwa-mode header {
+  padding-top: env(safe-area-inset-top);
+}
+
+.pwa-mode .carousel-wrapper {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Botão de instalação (opcional) */
+.install-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: orange;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: none;
+}
+
+.install-button.show {
+  display: block;
+}
+
+/* Melhorias para mobile em modo PWA */
+@media (display-mode: standalone) {
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  header {
+    min-height: 80px;
+  }
+}
 }
