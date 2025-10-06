@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#2196f3" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ZAnime">
+<meta name="description" content="Assista seus animes favoritos">
+<meta name="keywords" content="anime, filmes, séries, streaming">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- Ícones para iOS -->
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Splash screen para iOS -->
+<link rel="apple-touch-startup-image" href="splash.png">
 </head>
 <body>
   <header>
@@ -98,12 +110,53 @@
 
   <script src="script.js"></script>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('ServiceWorker registrado com sucesso:'))
-        .catch(err => console.log('Falha ao registrar o ServiceWorker:', err));
+ <script>
+  // Registrar Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          console.log('ServiceWorker registrado com sucesso: ', registration.scope);
+        })
+        .catch(function(err) {
+          console.log('Falha ao registrar o ServiceWorker: ', err);
+        });
+    });
+  }
+
+  // Detectar se está em modo standalone (PWA)
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    console.log('Executando como PWA');
+    document.body.classList.add('pwa-mode');
+  }
+
+  // Adicionar antesinstallprompt para instalação
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Previne que o browser mostre o prompt automaticamente
+    e.preventDefault();
+    // Guarda o evento para usar depois
+    deferredPrompt = e;
+    // Opcional: mostra um botão de instalação customizado
+    showInstallPromotion();
+  });
+
+  function showInstallPromotion() {
+    // Aqui você pode adicionar um botão customizado para instalação
+    console.log('PWA pode ser instalado');
+  }
+
+  function installPWA() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Usuário aceitou a instalação');
+        }
+        deferredPrompt = null;
+      });
     }
-  </script>
+  }
+</script>
 </body>
 </html>
