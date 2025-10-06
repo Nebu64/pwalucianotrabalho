@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZAnime</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+<link rel="manifest" href="./manifest.json" />
+<script src="./script.js"></script>
   <meta name="theme-color" content="#2196f3" />
   <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -111,39 +112,51 @@
   <script src="script.js"></script>
 
  <script>
-  // Registrar Service Worker
+  // Registrar Service Worker para GitHub Pages
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('service-worker.js')
+      navigator.serviceWorker.register('./service-worker.js')
         .then(function(registration) {
-          console.log('ServiceWorker registrado com sucesso: ', registration.scope);
+          console.log('ServiceWorker registrado com scope: ', registration.scope);
         })
         .catch(function(err) {
-          console.log('Falha ao registrar o ServiceWorker: ', err);
+          console.log('Falha ao registrar ServiceWorker: ', err);
         });
     });
   }
 
-  // Detectar se está em modo standalone (PWA)
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    console.log('Executando como PWA');
-    document.body.classList.add('pwa-mode');
-  }
-
-  // Adicionar antesinstallprompt para instalação
+  // Gerenciar instalação da PWA
   let deferredPrompt;
+  const installButton = document.createElement('button');
+  
   window.addEventListener('beforeinstallprompt', (e) => {
-    // Previne que o browser mostre o prompt automaticamente
     e.preventDefault();
-    // Guarda o evento para usar depois
     deferredPrompt = e;
-    // Opcional: mostra um botão de instalação customizado
-    showInstallPromotion();
+    
+    // Mostrar botão de instalação
+    showInstallButton();
   });
 
-  function showInstallPromotion() {
-    // Aqui você pode adicionar um botão customizado para instalação
-    console.log('PWA pode ser instalado');
+  function showInstallButton() {
+    installButton.innerHTML = '📱 Instalar App';
+    installButton.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: orange;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      font-family: inherit;
+    `;
+    
+    installButton.addEventListener('click', installPWA);
+    document.body.appendChild(installButton);
   }
 
   function installPWA() {
@@ -152,9 +165,24 @@
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
           console.log('Usuário aceitou a instalação');
+          installButton.remove();
         }
         deferredPrompt = null;
       });
+    }
+  }
+
+  // Esconder botão se já estiver instalado
+  window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA instalado');
+    installButton.remove();
+  });
+
+  // Verificar se já está em modo PWA
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    document.body.classList.add('pwa-mode');
+    if (installButton.parentNode) {
+      installButton.remove();
     }
   }
 </script>
