@@ -1,8 +1,8 @@
 {
   "name": "ZAnime",
   "short_name": "ZAnime",
-  "start_url": "/ZAnime/index.html",
-  "scope": "/ZAnime/",
+  "start_url": "/pwalucianotrabalho/index.html",
+  "scope": "/pwalucianotrabalho/",
   "display": "standalone",
   "background_color": "#5ca16e",
   "theme_color": "#7ecf6b",
