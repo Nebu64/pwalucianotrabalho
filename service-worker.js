@@ -1,12 +1,14 @@
 const CACHE_NAME = 'zanime-cache-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/cad.html',
-  '/la.html',
-  '/style.css',
-  '/script.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './cad.html',
+  './la.html',
+  './style.css',
+  './script.js',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', event => {
@@ -20,21 +22,27 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Não cachear requisições para a API externa
+  if (event.request.url.includes('api.jikan.moe')) {
+    return fetch(event.request);
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Retorna o arquivo do cache se encontrado, senão faz a requisição
+        // Cache-first strategy para arquivos locais
         if (response) {
           return response;
         }
+        
+        // Para outros recursos, network-first
         return fetch(event.request)
           .then(response => {
-            // Verifica se recebemos uma resposta válida
-            if(!response || response.status !== 200 || response.type !== 'basic') {
+            // Só cachear respostas válidas e do mesmo origin
+            if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
 
-            // Clona a resposta
             const responseToCache = response.clone();
 
             caches.open(CACHE_NAME)
@@ -45,9 +53,9 @@ self.addEventListener('fetch', event => {
             return response;
           })
           .catch(() => {
-            // Em caso de erro na rede, você pode retornar uma página offline
+            // Fallback para página principal se offline
             if (event.request.destination === 'document') {
-              return caches.match('/index.html');
+              return caches.match('./index.html');
             }
           });
       })
