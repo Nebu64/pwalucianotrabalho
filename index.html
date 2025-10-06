@@ -4,22 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZAnime</title>
+  
+  <!-- PWA Meta Tags -->
   <link rel="stylesheet" href="./style.css" />
-<link rel="manifest" href="./manifest.json" />
-<script src="./script.js"></script>
-  <meta name="theme-color" content="#2196f3" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#7ecf6b" />
   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="ZAnime">
-<meta name="description" content="Assista seus animes favoritos">
-<meta name="keywords" content="anime, filmes, séries, streaming">
-<meta name="mobile-web-app-capable" content="yes">
-
-<!-- Ícones para iOS -->
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<!-- Splash screen para iOS -->
-<link rel="apple-touch-startup-image" href="splash.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ZAnime">
+  <meta name="description" content="Assista seus animes favoritos">
+  <meta name="keywords" content="anime, filmes, séries, streaming">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
   <header>
@@ -29,7 +25,6 @@
         <a href="#" id="nav-home" class="active">Início</a>
         <a href="#" id="nav-filmes">Filmes</a>
         <a href="#" id="nav-series">Séries</a>
-        <!-- O botão "Gêneros" é criado dinamicamente pelo JS -->
       </nav>
     </div>
     <form id="search-form" class="search-top-form">
@@ -109,95 +104,106 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 
- <<script>
-  // Configuração automática para GitHub Pages
-  const repoName = 'ZAnime'; // SUBSTITUA pelo nome do seu repositório
-  const basePath = window.location.hostname === 'localhost' ? '' : `/${repoName}`;
+  <script>
+    // Configuração automática para GitHub Pages
+    const repoName = 'pwalucianotrabalho';
+    const basePath = window.location.hostname === 'localhost' ? '' : `/${repoName}`;
 
-  // Configurar Service Worker dinamicamente
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      const swPath = basePath ? `${basePath}/service-worker.js` : './service-worker.js';
-      
-      navigator.serviceWorker.register(swPath)
-        .then(function(registration) {
-          console.log('ServiceWorker registrado com sucesso: ', registration.scope);
-        })
-        .catch(function(err) {
-          console.log('Falha ao registrar ServiceWorker: ', err);
-        });
-    });
-  }
-
-  // Corrigir links para funcionar no GitHub Pages
-  document.addEventListener('DOMContentLoaded', function() {
-    // Atualizar links relativos
-    const links = document.querySelectorAll('a[href^="./"]');
-    links.forEach(link => {
-      const originalHref = link.getAttribute('href');
-      link.setAttribute('href', basePath + originalHref.substring(1));
-    });
-
-    // Atualizar src de scripts e links
-    const resources = document.querySelectorAll('script[src^="./"], link[href^="./"]');
-    resources.forEach(resource => {
-      const attr = resource.tagName === 'SCRIPT' ? 'src' : 'href';
-      const originalSrc = resource.getAttribute(attr);
-      resource.setAttribute(attr, basePath + originalSrc.substring(1));
-    });
-  });
-
-  // Gerenciar instalação PWA
-  let deferredPrompt;
-  const installButton = document.createElement('button');
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    showInstallButton();
-  });
-
-  function showInstallButton() {
-    installButton.innerHTML = '📱 Instalar App';
-    installButton.style.cssText = `
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: orange;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      padding: 12px 20px;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 1000;
-      font-family: inherit;
-    `;
-    
-    installButton.addEventListener('click', installPWA);
-    document.body.appendChild(installButton);
-  }
-
-  function installPWA() {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('PWA instalado com sucesso');
-          installButton.remove();
-        }
-        deferredPrompt = null;
+    // Configurar Service Worker dinamicamente
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        const swPath = basePath ? `${basePath}/service-worker.js` : './service-worker.js';
+        
+        navigator.serviceWorker.register(swPath)
+          .then(function(registration) {
+            console.log('ServiceWorker registrado com sucesso: ', registration.scope);
+          })
+          .catch(function(err) {
+            console.log('Falha ao registrar ServiceWorker: ', err);
+          });
       });
     }
-  }
 
-  window.addEventListener('appinstalled', () => {
-    console.log('PWA foi instalado');
-    installButton.remove();
-  });
-</script>
+    // Corrigir links para funcionar no GitHub Pages
+    document.addEventListener('DOMContentLoaded', function() {
+      // Atualizar action dos forms
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+        const originalAction = form.getAttribute('action');
+        if (originalAction && originalAction.startsWith('./')) {
+          form.setAttribute('action', basePath + originalAction.substring(1));
+        }
+      });
+
+      // Atualizar links de navegação
+      const links = document.querySelectorAll('a[href^="./"]');
+      links.forEach(link => {
+        const originalHref = link.getAttribute('href');
+        if (!originalHref.includes('#')) {
+          link.setAttribute('href', basePath + originalHref.substring(1));
+        }
+      });
+    });
+
+    // Gerenciar instalação PWA
+    let deferredPrompt;
+    const installButton = document.createElement('button');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallButton();
+    });
+
+    function showInstallButton() {
+      installButton.innerHTML = '📱 Instalar App';
+      installButton.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: orange;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 1000;
+        font-family: inherit;
+      `;
+      
+      installButton.addEventListener('click', installPWA);
+      document.body.appendChild(installButton);
+    }
+
+    function installPWA() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('PWA instalado com sucesso');
+            installButton.remove();
+          }
+          deferredPrompt = null;
+        });
+      }
+    }
+
+    window.addEventListener('appinstalled', () => {
+      console.log('PWA foi instalado');
+      installButton.remove();
+    });
+
+    // Verificar se já está em modo PWA
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      document.body.classList.add('pwa-mode');
+      if (installButton.parentNode) {
+        installButton.remove();
+      }
+    }
+  </script>
 </body>
 </html>
