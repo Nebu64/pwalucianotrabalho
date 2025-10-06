@@ -111,13 +111,19 @@
 
   <script src="script.js"></script>
 
- <script>
-  // Registrar Service Worker para GitHub Pages
+ <<script>
+  // Configuração automática para GitHub Pages
+  const repoName = 'ZAnime'; // SUBSTITUA pelo nome do seu repositório
+  const basePath = window.location.hostname === 'localhost' ? '' : `/${repoName}`;
+
+  // Configurar Service Worker dinamicamente
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./service-worker.js')
+      const swPath = basePath ? `${basePath}/service-worker.js` : './service-worker.js';
+      
+      navigator.serviceWorker.register(swPath)
         .then(function(registration) {
-          console.log('ServiceWorker registrado com scope: ', registration.scope);
+          console.log('ServiceWorker registrado com sucesso: ', registration.scope);
         })
         .catch(function(err) {
           console.log('Falha ao registrar ServiceWorker: ', err);
@@ -125,15 +131,31 @@
     });
   }
 
-  // Gerenciar instalação da PWA
+  // Corrigir links para funcionar no GitHub Pages
+  document.addEventListener('DOMContentLoaded', function() {
+    // Atualizar links relativos
+    const links = document.querySelectorAll('a[href^="./"]');
+    links.forEach(link => {
+      const originalHref = link.getAttribute('href');
+      link.setAttribute('href', basePath + originalHref.substring(1));
+    });
+
+    // Atualizar src de scripts e links
+    const resources = document.querySelectorAll('script[src^="./"], link[href^="./"]');
+    resources.forEach(resource => {
+      const attr = resource.tagName === 'SCRIPT' ? 'src' : 'href';
+      const originalSrc = resource.getAttribute(attr);
+      resource.setAttribute(attr, basePath + originalSrc.substring(1));
+    });
+  });
+
+  // Gerenciar instalação PWA
   let deferredPrompt;
   const installButton = document.createElement('button');
-  
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    
-    // Mostrar botão de instalação
     showInstallButton();
   });
 
@@ -164,7 +186,7 @@
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-          console.log('Usuário aceitou a instalação');
+          console.log('PWA instalado com sucesso');
           installButton.remove();
         }
         deferredPrompt = null;
@@ -172,19 +194,10 @@
     }
   }
 
-  // Esconder botão se já estiver instalado
-  window.addEventListener('appinstalled', (evt) => {
-    console.log('PWA instalado');
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA foi instalado');
     installButton.remove();
   });
-
-  // Verificar se já está em modo PWA
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    document.body.classList.add('pwa-mode');
-    if (installButton.parentNode) {
-      installButton.remove();
-    }
-  }
 </script>
 </body>
 </html>
