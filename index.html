@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZAnime</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2196f3" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="logo.png" class="site-logo" alt="Logo" />
+      <nav>
+        <a href="#" id="nav-home" class="active">Início</a>
+        <a href="#" id="nav-filmes">Filmes</a>
+        <a href="#" id="nav-series">Séries</a>
+        <!-- O botão "Gêneros" é criado dinamicamente pelo JS -->
+      </nav>
+    </div>
+    <form id="search-form" class="search-top-form">
+      <input id="search-input" type="search" placeholder="Buscar anime..." autocomplete="off" />
+      <button type="submit">Buscar</button>
+    </form>
+  </header>
+
+  <main>
+    <!-- Seção Home -->
+    <section id="home-section">
+      <h1 style="margin-bottom:22px;">Bem-vindo ao ZAnime</h1>
+
+      <!-- Carrossel de lançamentos -->
+      <div class="carousel-title">Lançamentos</div>
+      <div class="carousel-wrapper">
+        <button id="carousel-lancamentos-prev" class="carousel-arrow left" aria-label="Anterior">&lt;</button>
+        <div id="carousel-lancamentos" class="main-carousel"></div>
+        <button id="carousel-lancamentos-next" class="carousel-arrow right" aria-label="Próximo">&gt;</button>
+      </div>
+
+      <!-- Carrossel de populares -->
+      <div class="carousel-title">Mais assistidos</div>
+      <div class="carousel-wrapper">
+        <button id="carousel-populares-prev" class="carousel-arrow left" aria-label="Anterior">&lt;</button>
+        <div id="carousel-populares" class="small-carousel"></div>
+        <button id="carousel-populares-next" class="carousel-arrow right" aria-label="Próximo">&gt;</button>
+      </div>
+    </section>
+
+    <!-- Seção Player -->
+    <section id="player-section" class="hidden">
+      <div id="player-info"></div>
+      <div class="video-player"></div>
+      <button id="back-to-home">Voltar</button>
+    </section>
+
+    <!-- Seção Busca Geral -->
+    <section id="search-results" class="hidden">
+      <div id="search-animes"></div>
+    </section>
+
+    <!-- Seção Episódios -->
+    <section id="episodes-section" class="hidden">
+      <h3>Episódios</h3>
+      <ul id="episodes-list"></ul>
+      <button id="close-episodes">Fechar</button>
+    </section>
+
+    <!-- Seção Gêneros -->
+    <section id="generos-section" class="hidden">
+      <div class="generos-header">
+        <h2>Filtrar por Gênero</h2>
+      </div>
+      <div id="generos-list"></div>
+      <div id="generos-animes-result"></div>
+    </section>
+
+    <!-- Seção Filmes -->
+    <section id="filmes-section" class="hidden">
+      <h2>Filmes</h2>
+      <form id="filmes-search-form" class="search-top-form" style="margin-bottom:24px;">
+        <input id="filmes-search-input" type="search" placeholder="Buscar filme..." autocomplete="off" />
+        <button type="submit">Buscar</button>
+      </form>
+      <div id="filmes-lista"></div>
+    </section>
+
+    <!-- Seção Séries -->
+    <section id="series-section" class="hidden">
+      <h2>Séries</h2>
+      <form id="series-search-form" class="search-top-form" style="margin-bottom:24px;">
+        <input id="series-search-input" type="search" placeholder="Buscar série..." autocomplete="off" />
+        <button type="submit">Buscar</button>
+      </form>
+      <div id="series-lista"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('ServiceWorker registrado com sucesso:'))
+        .catch(err => console.log('Falha ao registrar o ServiceWorker:', err));
+    }
+  </script>
+</body>
+</html>

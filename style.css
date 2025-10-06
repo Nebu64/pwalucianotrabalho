@@ -1,0 +1,924 @@
+/* ====== RESET & BASE ====== */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #5ca16e; /* verde suave de fundo */
+  color: #fff;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  min-height: 100vh;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+.hidden {
+  display: none !important;
+}
+
+/* ====== TITULOS CENTRALIZADOS E LARANJA ====== */
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+  color: orange;
+  font-family: inherit;
+  text-shadow: 1px 1px 4px #0002;
+  margin-bottom: 18px;
+}
+
+/* ====== NAVIGATION & HEADER ====== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #7ecf6b; /* verde mais claro para header */
+  padding: 0 0 0 0;
+  min-height: 70px;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 2px 12px #0002;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+}
+.site-logo {
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+  margin: 0 18px 0 18px;
+  object-fit: cover;
+  border: 2.5px solid #fff;
+  background: #fff;
+}
+nav {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+  box-shadow: none;
+  z-index: 100;
+  padding: 0;
+}
+nav a {
+  color: #fff;
+  background: #111;
+  border-radius: 18px;
+  text-decoration: none;
+  font-weight: normal;
+  padding: 8px 32px;
+  font-size: 1.18em;
+  border: none;
+  margin: 0 8px;
+  font-family: inherit;
+  letter-spacing: 1px;
+  transition: background 0.18s, color 0.18s;
+}
+nav a.active,
+nav a:hover {
+  color: orange;
+  background: #222;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+.search-top-form {
+  display: flex;
+  align-items: center;
+  margin-right: 18px;
+  background: #a6e2b3;
+  border-radius: 24px;
+  padding: 0 12px;
+}
+.search-top-form input {
+  padding: 7px 18px;
+  font-size: 1em;
+  border: none;
+  border-radius: 18px 0 0 18px;
+  background: #c7eecf;
+  color: #383838;
+  width: 140px;
+  transition: background 0.18s;
+}
+.search-top-form input:focus {
+  background: #fff;
+}
+.search-top-form button {
+  padding: 7px 14px;
+  font-size: 1em;
+  border: none;
+  border-radius: 0 18px 18px 0;
+  background: #c7eecf;
+  color: #d92d23;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.search-top-form button:hover {
+  background: #fff;
+  color: #b71c1c;
+}
+
+/* ====== CARROSSEL CENTRALIZADO E MODERNO ====== */
+.carousel-title {
+  text-align: left;
+  color: #fff;
+  font-size: 2.2em;
+  font-family: inherit;
+  margin: 32px 0 12px 32px;
+  text-shadow: 1px 1px 4px #0002;
+  letter-spacing: 2px;
+}
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.main-carousel, .small-carousel {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-item {
+  background: #388e3c;
+  border-radius: 28px;
+  box-shadow: 0 4px 24px #0003;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+  width: 420px;
+  min-width: 320px;
+  max-width: 480px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.carousel-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 28px 28px 0 0;
+}
+.carousel-item h3 {
+  color: orange;
+  font-size: 1.3em;
+  margin: 12px 0 0 0;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 1px 1px 4px #0002;
+}
+.carousel-item:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 32px #0005;
+}
+.carousel-arrow {
+  background: none;
+  border: none;
+  color: orange;
+  font-size: 2.8em;
+  cursor: pointer;
+  padding: 0 12px;
+  transition: color 0.18s;
+  border-radius: 50%;
+}
+.carousel-arrow:hover {
+  color: #fff;
+  background: #388e3c;
+}
+
+/* Carrossel pequeno */
+.carousel-item.small {
+  width: 180px;
+  min-width: 120px;
+  max-width: 220px;
+  height: 140px;
+  background: #388e3c;
+}
+.carousel-item.small img {
+  height: 90px;
+  border-radius: 18px 18px 0 0;
+}
+.carousel-item.small h3 {
+  font-size: 1em;
+  margin: 8px 0 0 0;
+}
+
+/* ====== LOGIN & CADASTRO ====== */
+.auth-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+#login-form, #cadastro-form {
+  background: #181818;
+  padding: 32px 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px #000a;
+  max-width: 350px;
+  min-width: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#login-form h2, #cadastro-form h2 {
+  margin-bottom: 18px;
+  color: orange;
+  font-family: inherit;
+}
+#login-form input, #cadastro-form input {
+  background: #181818;
+  color: #ffffff;
+  outline: none;
+  border: 1px solid #333;
+  transition: border 0.2s;
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 16px;
+  width: 80%;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+#login-form input:focus, #cadastro-form input:focus {
+  border: 1.5px solid orange;
+}
+#login-form button, #cadastro-form button {
+  background: orange;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1em;
+  margin-top: 14px;
+  width: 85%;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: background 0.18s;
+}
+#login-form button:hover, #cadastro-form button:hover {
+  background: #ff9800;
+}
+.auth-footer {
+  margin-top: 18px;
+  color: #fff;
+  font-size: 0.98em;
+  text-align: center;
+}
+.auth-footer a {
+  color: orange;
+  text-decoration: none;
+  font-weight: bold;
+}
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+#login-msg, #cadastro-msg {
+  margin-top: 12px;
+  color: orange;
+  font-size: 1em;
+  text-align: center;
+  min-height: 1.3em;
+}
+
+/* ====== OUTROS PADRÕES DE ANTIGOS ESTILOS ====== */
+.video-container {
+  background: #181818;
+  margin: 40px auto 0 auto;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px #000a;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.video-title {
+  color: orange;
+  font-size: 1.2em;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.back-link {
+  margin-top: 18px;
+  color: #454242;
+  text-align: center;
+}
+.back-link a {
+  color: orange;
+  text-decoration: none;
+  font-weight: bold;
+}
+.back-link a:hover {
+  text-decoration: underline;
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 1100px) {
+  .carousel-item {
+    width: 320px;
+    min-width: 220px;
+    height: 200px;
+  }
+  .carousel-title {
+    font-size: 1.5em;
+    margin-left: 12px;
+  }
+}
+@media (max-width: 800px) {
+  .site-logo {
+    height: 38px;
+    width: 38px;
+    margin: 0 6px 0 6px;
+  }
+  .logo-text {
+    font-size: 1.1em;
+    margin-left: 5px;
+    margin-right: 7px;
+  }
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: unset;
+    border-radius: 0;
+  }
+  .search-top-form {
+    margin: 8px 0 0 0 !important;
+    width: 100%;
+    justify-content: center;
+  }
+  nav a {
+    font-size: 1em;
+    padding: 0 8px;
+  }
+  .carousel-wrapper {
+    gap: 8px;
+  }
+  .carousel-item {
+    width: 180px;
+    min-width: 120px;
+    height: 120px;
+  }
+}
+@media (max-width: 600px) {
+  #login-form, #cadastro-form {
+    max-width: 99vw;
+    padding: 14px 6px;
+    border-radius: 8px;
+  }
+  .auth-section {
+    min-height: 55vh;
+  }
+  .video-container {
+    max-width: 98vw;
+    padding: 10px;
+  }
+  iframe {
+    width: 98vw !important;
+    height: 200px !important;
+      }
+  .carousel-title {
+    font-size: 1.1em;
+    margin-left: 4px;
+  }
+}
+.filmes-grid, .search-grid, .generos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 28px;
+  justify-items: center;
+  margin: 24px 0;
+}
+
+/* Card padrão para filmes, séries, busca e gêneros */
+.filme-serie-card, .search-anime-card, .generos-anime-card {
+  background: #388e3c;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px #0003;
+  overflow: hidden;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.filme-serie-card:hover, .search-anime-card:hover, .generos-anime-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px #0005;
+}
+
+.filme-serie-card img,
+.search-anime-card img,
+.generos-anime-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 18px 18px 0 0;
+  background: #222;
+}
+
+.filme-serie-info, .search-anime-card h4, .generos-anime-card h4 {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0 8px 0;
+}
+
+.filme-serie-info h4,
+.search-anime-card h4,
+.generos-anime-card h4 {
+  color: orange;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 1px 1px 4px #0002;
+}
+
+.filme-serie-ano {
+  display: block;
+  color: #fff;
+  font-size: 0.95em;
+  margin-top: 2px;
+}
+
+/* Responsivo para grid */
+@media (max-width: 800px) {
+  .filmes-grid, .search-grid, .generos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 14px;
+  }
+  .filme-serie-card, .search-anime-card, .generos-anime-card {
+    width: 120px;
+  }
+  .filme-serie-card img,
+  .search-anime-card img,
+  .generos-anime-card img {
+    height: 70px;
+  }
+}
+main, section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* Header responsivo */
+@media (max-width: 900px) {
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 0;
+  }
+  .header-left {
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .search-top-form {
+    margin: 8px auto 0 auto !important;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Carrossel responsivo */
+@media (max-width: 900px) {
+  .carousel-title {
+    font-size: 1.3em;
+    margin-left: 8px;
+  }
+  .carousel-wrapper {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .main-carousel, .small-carousel {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .carousel-item {
+    width: 98vw;
+    min-width: 180px;
+    max-width: 98vw;
+    height: auto;
+  }
+  .carousel-item img {
+    height: 140px;
+  }
+}
+
+/* Grid responsivo para cards */
+@media (max-width: 600px) {
+  .filmes-grid, .search-grid, .generos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .filme-serie-card, .search-anime-card, .generos-anime-card {
+    width: 100%;
+    min-width: 90px;
+    max-width: 100vw;
+  }
+  .filme-serie-card img,
+  .search-anime-card img,
+  .generos-anime-card img {
+    height: 60px;
+  }
+  .filme-serie-info, .search-anime-card h4, .generos-anime-card h4 {
+    padding: 6px 0 6px 0;
+    font-size: 0.95em;
+  }
+}
+
+/* Formulários responsivos */
+@media (max-width: 500px) {
+  #login-form, #cadastro-form {
+    padding: 8px 2px;
+    min-width: unset;
+    max-width: 98vw;
+  }
+  .auth-section {
+    min-height: 40vh;
+  }
+}
+
+/* Botões responsivos */
+button, .carousel-arrow {
+  font-size: 1em;
+  padding: 8px 12px;
+}
+
+/* Ajuste para títulos e textos */
+@media (max-width: 400px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+}
+/* ...existing code... */
+
+/* Layout vertical dos gêneros na lateral esquerda */
+#generos-section {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: flex-start;
+}
+
+/* Gêneros na lateral esquerda com fundo destacado */
+#generos-list {
+  min-width: 180px;
+  background: #222;
+  padding: 24px 12px;
+  border-radius: 16px;
+  margin-right: 32px;
+  box-shadow: 0 2px 16px #0005;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: fit-content;
+}
+
+#generos-list label {
+  display: block;
+  margin-bottom: 14px;
+  color: orange;
+  font-size: 1.08em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.18s, color 0.18s;
+}
+
+#generos-list label:hover,
+#generos-list input[type="checkbox"]:focus + label {
+  background: #333;
+  color: #fff;
+}
+
+#generos-list input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Resultados dos animes por gênero ocupam o resto da tela */
+#generos-animes-result {
+  flex: 1;
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+  #generos-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #generos-list {
+    margin-right: 0;
+    margin-bottom: 18px;
+    width: 100%;
+    min-width: unset;
+    border-radius: 12px;
+    padding: 12px 6px;
+  }
+}
+/* ...existing code... */
+
+/* Gêneros fixos na lateral esquerda, responsivo */
+#generos-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 400px;
+}
+
+#generos-list {
+  position: sticky;
+  top: 90px;
+  left: 0;
+  width: 220px;
+  background: #222;
+  padding: 28px 16px 28px 16px;
+  border-radius: 18px;
+  margin-right: 32px;
+  box-shadow: 0 2px 16px #0005;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: fit-content;
+  z-index: 2;
+}
+
+#generos-list label {
+  display: block;
+  margin-bottom: 16px;
+  color: orange;
+  font-size: 1.08em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.18s, color 0.18s;
+}
+
+#generos-list label:hover,
+#generos-list input[type="checkbox"]:focus + label {
+  background: #333;
+  color: #fff;
+}
+
+#generos-list input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+#generos-animes-result {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 900px) {
+  #generos-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #generos-list {
+    position: static;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    padding: 14px 8px;
+  }
+}
+/* ...existing code... */
+
+/* Gêneros fixos na lateral esquerda, ocupando pouco espaço */
+#generos-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 400px;
+}
+
+#generos-list {
+  position: sticky;
+  top: 90px;
+  left: 0;
+  width: 140px;
+  background: #222;
+  padding: 16px 8px;
+  border-radius: 14px;
+  margin-right: 18px;
+  box-shadow: 0 2px 12px #0005;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: fit-content;
+  z-index: 2;
+}
+
+#generos-list label {
+  display: block;
+  margin-bottom: 10px;
+  color: orange;
+  font-size: 0.98em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 6px;
+  border-radius: 6px;
+  transition: background 0.18s, color 0.18s;
+  word-break: break-word;
+}
+
+#generos-list label:hover,
+#generos-list input[type="checkbox"]:focus + label {
+  background: #333;
+  color: #fff;
+}
+
+#generos-list input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+#generos-animes-result {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 900px) {
+  #generos-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #generos-list {
+    position: static;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    padding: 10px 4px;
+  }
+}
+/* ...existing code... */
+
+/* Gêneros colados na borda esquerda da tela */
+#generos-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 400px;
+  width: 100%;
+  padding: 0;
+}
+
+#generos-list {
+  position: fixed;
+  top: 100px; /* ajuste conforme altura do header */
+  left: 0;
+  width: 120px;
+  background: #222;
+  padding: 12px 4px;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 2px 0 12px #0005;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: auto;
+  z-index: 10;
+}
+
+#generos-list label {
+  display: block;
+  margin-bottom: 8px;
+  color: orange;
+  font-size: 0.95em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 6px;
+  border-radius: 6px;
+  transition: background 0.18s, color 0.18s;
+  word-break: break-word;
+}
+
+#generos-list label:hover,
+#generos-list input[type="checkbox"]:focus + label {
+  background: #333;
+  color: #fff;
+}
+
+#generos-list input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+#generos-animes-result {
+  margin-left: 130px; /* espaço para a barra fixa */
+  flex: 1;
+  min-width: 0;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 700px) {
+  #generos-list {
+    position: static;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: none;
+    top: unset;
+    left: unset;
+    padding: 8px 2px;
+  }
+  #generos-animes-result {
+    margin-left: 0;
+  }
+  #generos-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+#generos-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 400px;
+  width: 100%;
+  padding: 0;
+}
+
+#generos-list {
+  position: fixed;
+  top: 100px; /* ajuste conforme altura do header */
+  left: 0;
+  width: 120px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #222;
+  padding: 12px 4px;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 2px 0 12px #0005;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 10;
+}
+
+#generos-list label {
+  display: block;
+  margin-bottom: 8px;
+  color: orange;
+  font-size: 0.95em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 6px;
+  border-radius: 6px;
+  transition: background 0.18s, color 0.18s;
+  word-break: break-word;
+}
+
+#generos-list label:hover,
+#generos-list input[type="checkbox"]:focus + label {
+  background: #333;
+  color: #fff;
+}
+
+#generos-list input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+#generos-animes-result {
+  margin-left: 130px; /* espaço para a barra fixa */
+  flex: 1;
+  min-width: 0;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 700px) {
+  #generos-list {
+    position: static;
+    width: 100%;
+    max-height: unset;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: none;
+    top: unset;
+    left: unset;
+    padding: 8px 2px;
+    overflow-y: visible;
+  }
+  #generos-animes-result {
+    margin-left: 0;
+  }
+  #generos-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

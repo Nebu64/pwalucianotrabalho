@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistir Episódio - AnimeFlix</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="video-container">
+    <div class="video-title" id="anime-title">Carregando...</div>
+    <div id="video-player"></div>
+    <div class="back-link">
+      <a href="index.html">&larr; Voltar para o AnimeFlix</a>
+    </div>
+  </div>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const title = getQueryParam("title") || "Episódio";
+    const videoId = getQueryParam("videoId");
+
+    document.getElementById("anime-title").textContent = decodeURIComponent(title);
+
+    if (videoId) {
+      document.getElementById("video-player").innerHTML = `
+        <iframe width="360" height="220"
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen>
+        </iframe>
+      `;
+    } else {
+      document.getElementById("video-player").innerHTML = "<p style='color:#fff;'>Vídeo não encontrado.</p>";
+    }
+  </script>
+</body>
+</html>
